@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission: Kennenlernfahrt – Spielregeln</title>
+    <style>
+        :root {
+            /* Light Theme Color Palette */
+            --primary: #d32f2f;
+            --primary-light: #ff6659;
+            --primary-dark: #9a0007;
+            --accent: #ff9800;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --highlight-bg: #fee2e2;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+            --badge-bg: linear-gradient(135deg, #d32f2f, #ef5350);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Color Palette */
+            --primary: #ef5350;
+            --primary-light: #ff867c;
+            --primary-dark: #b61827;
+            --accent: #ffb74d;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-light: #94a3b8;
+            --border-color: #334155;
+            --highlight-bg: #450a0a;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            --badge-bg: linear-gradient(135deg, #ef5350, #e53935);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 130px; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            padding: 12px 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            border-radius: 20px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 60px;
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 35px;
+            padding: 30px 20px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2.1rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            font-weight: 800;
+        }
+
+        header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Cards Style */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            margin-bottom: 18px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .rules-list {
+            list-style-type: none;
+            counter-reset: custom-counter;
+        }
+
+        .rules-list li {
+            position: relative;
+            margin-bottom: 18px;
+            padding-left: 42px;
+        }
+
+        .rules-list li::before {
+            counter-increment: custom-counter;
+            content: counter(custom-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--badge-bg);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .highlight {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .important-box {
+            background-color: var(--highlight-bg);
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 18px;
+            border-left: 4px solid var(--primary);
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        /* Organizer Box */
+        .organizer-box {
+            background: linear-gradient(135deg, var(--card-bg), var(--bg-color));
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .organizer-icon {
+            font-size: 1.8rem;
+        }
+
+        .organizer-info h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin-bottom: 2px;
+        }
+
+        .organizer-info p {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.05rem;
+        }
+
+        /* Generator Box */
+        .generator-box {
+            background: var(--bg-color);
+            border: 1px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .task-display {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary);
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .gen-btn {
+            background: var(--badge-bg);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .gen-btn:hover {
+            transform: scale(1.03);
+            opacity: 0.95;
+        }
+
+        /* Search Box */
+        .search-container {
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+        }
+
+        .no-results {
+            display: none;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        /* Accordion / FAQ Styles */
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 18px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+            transition: color 0.2s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease, padding 0.3s ease;
+            opacity: 0;
+            color: var(--text-light);
+        }
+
+        .faq-answer.show {
+            opacity: 1;
+            padding-bottom: 18px;
+        }
+
+        /* Footer & Copyright */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        footer strong {
+            color: var(--text-main);
+        }
+
+        .copyright-box {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            margin-top: 10px;
+            line-height: 1.8;
+        }
+
+        .copyright-box a {
+            color: var(--text-light);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-light);
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .copyright-box a:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Navigationsleiste -->
+    <nav class="navbar">
+        <a href="#leitung" class="nav-link">🙋‍♂️ Leitung</a>
+        <a href="#ziel" class="nav-link">🎯 Spielziel</a>
+        <a href="#regeln" class="nav-link">📝 Regeln</a>
+        <a href="#beispiele" class="nav-link">💡 Beispiele</a>
+        <a href="#qa" class="nav-link">❓ Q&A</a>
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="Theme umschalten">
+            <span id="themeIcon">🌙</span> <span id="themeText">Dunkel</span>
+        </button>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Mission: Kennenlernfahrt</h1>
+            <p>Überleben. Interagieren. Siegen.</p>
+        </header>
+
+        <!-- Veranstalter Info-Karte -->
+        <div class="card" id="leitung">
+            <h2>👑 Spielleitung & Veranstalter</h2>
+            <p>Dieses Spiel ist komplett freiwillig und soll uns helfen, als Stufe besser ins Gespräch zu kommen und gemeinsam Spaß zu haben.</p>
+            <div class="organizer-box">
+                <span class="organizer-icon">🙋‍♂️</span>
+                <div class="organizer-info">
+                    <h3>Veranstalter & Ansprechpartner</h3>
+                    <p>Constantin Kaiser (11 W)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="ziel">
+            <h2>🎯 Das Spielziel</h2>
+            <p>Dein Ziel ist es, am Ende als Letztes übrig zu bleiben! Du gewinnst, indem du durch unauffällige Interaktionen deine Mitschüler „besiegst“ und dir so deren Zettel holst, um einen neuen Auftrag zu erhalten.</p>
+        </div>
+
+        <div class="card" id="regeln">
+            <h2>📝 Die Regeln</h2>
+            <ol class="rules-list">
+                <li><strong>Auftrag ausführen:</strong> Du bekommst einen Zettel mit dem <span class="highlight">Namen</span> deiner Zielperson und einer <span class="highlight">Aufgabe</span>, die du erfüllen musst, um die Person "auszuschalten". Nimm gleichzeitig selbst nichts von anderen an!</li>
+                <li><strong>Der fließende Übergang:</strong> Wenn du dein Ziel erfolgreich ausgeschaltet hast, übernimmst du den Auftrag und die Zielperson deines Opfers. <span class="highlight">Das ist nun dein neuer Auftrag!</span></li>
+                <li><strong>Zeugen-Regel:</strong> Dein Auftrag ist nur dann erfolgreich, wenn keine unbeteiligten aktiven Spieler die Aktion bemerken oder durchschauen.</li>
+                <li><strong>Sicherheit geht vor:</strong> Niemand darf bei der Ausführung der Aufträge verletzt, belästigt oder in peinliche/gefährliche Situationen gebracht werden.</li>
+                <li><strong>Schiedsrichter ist Gesetz:</strong> Bei Unstimmigkeiten entscheidet immer der Veranstalter/Spielleiter.</li>
+                <li><strong>STRIKTE GEHEIMHALTUNG:</strong> Du darfst unter keinen Umständen die aktiven Aufträge von Spielern, die sich noch im Spiel befinden, verraten! Wer redet, ruiniert den Spielspaß für die anderen.</li>
+            </ol>
+            
+            <div class="important-box">
+                <strong>Wichtig:</strong> Trage auf unserer ausliegenden Liste ein, wen und wie du die Person besiegt hast! (Zum Beispiel: <em>„Hannah mit einem Stock“</em>).
+            </div>
+        </div>
+
+        <!-- Auftrags-Ideen-Generator -->
+        <div class="card" id="beispiele">
+            <h2>💡 Beispiele & Auftrags-Generator</h2>
+            <p style="margin-bottom: 12px;">Du möchtest wissen, wie solche Aufträge aussehen können? Klicke auf den Button für zufällige Beispiele!</p>
+            <div class="generator-box">
+                <div class="task-display" id="taskDisplay">Klicke unten, um eine Beispiel-Missionsidee zu laden!</div>
+                <button class="gen-btn" id="generateBtn">🎲 Zufalls-Auftrag generieren</button>
+            </div>
+        </div>
+
+        <div class="card" id="qa">
+            <h2>❓ Fragen & Antworten (Q&A)</h2>
+            
+            <!-- Live-Regel-Suche -->
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Frage oder Stichwort suchen (z.B. Zettel, aufhören)...">
+            </div>
+
+            <div id="noResults" class="no-results">Keine passende Antwort gefunden. Frag im Zweifel Constantin Kaiser (11 W)!</div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Wer darf beim Spiel mitmachen?</button>
+                <div class="faq-answer">
+                    <p>Jeder, der sich vor Spielbeginn beim Veranstalter angemeldet hat und die Regeln akzeptiert.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Was passiert, wenn ich ausscheide?</button>
+                <div class="faq-answer">
+                    <p>Du bist ab sofort Zuschauer. Bitte verhalte dich unauffällig und ruiniere nicht das Spiel für die anderen, die noch aktiv sind.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Was mache ich, wenn ich meinen Zettel verloren habe?</button>
+                <div class="faq-answer">
+                    <p>Schreibe dir einfach einen neuen, falls du dich noch an deinen Auftrag und dein Ziel erinnerst. Wenn nicht, melde dich heimlich beim Veranstalter. Er hat eine Liste und kann dir deinen Auftrag erneut mitteilen.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Wie beweise ich, dass ich jemanden "erwischt" habe?</button>
+                <div class="faq-answer">
+                    <p>Im Idealfall durch die Ehrlichkeit der Zielperson. Sobald die Aktion ausgeführt wurde, sagst du ihr leise, dass sie ausgeschieden ist. Die ausgeschiedene Person übergibt dir dann ihren Auftrag.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Wo kann ich den Veranstalter finden?</button>
+                <div class="faq-answer">
+                    <p>Meist ist er nie weit entfernt und wahrscheinlich am Beachvolleyballplatz, bei den Tischtennisplatten oder beim Pokern an einem Gemeinschaftstisch anzutreffen.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Was mache ich, wenn Zuschauer alles verraten haben?</button>
+                <div class="faq-answer">
+                    <p>Geh direkt zum Veranstalter! Melde das Problem, damit die alten Zettel für ungültig erklärt und neue Aufträge unter den noch spielenden Spielern verteilt werden können. So bleibt das Spiel fair und spannend.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Was mache ich, wenn ich keine Lust mehr habe?</button>
+                <div class="faq-answer">
+                    <p>Gar kein Problem. Melde dich einfach beim Veranstalter und gib deinen Zettel ab. Das Spiel ist zu 100 % freiwillig!</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Die Person ahnt, dass ich ihr etwas geben muss!</button>
+                <div class="faq-answer">
+                    <p>Lock in gehen! Bleib entspannt, tu so als wäre nichts und warte auf den perfekten, unerwarteten Moment.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Ich bin rausgeflogen, will aber noch weiterspielen!</button>
+                <div class="faq-answer">
+                    <p>Melde dich beim Veranstalter. Vielleicht möchte gerade jemand anderes aufhören, dessen Rolle und Auftrag du übernehmen kannst.</p>
+                </div>
+            </div>
+
+  <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Woran erkenne ich ob das Spiel nichts für mich ist?</button>
+                <div class="faq-answer">
+                    <p>Wenn du jedes Wort auf die Goldwaage legst, hinter jeder Ecke eine Verschwörung erahnst oder die Anspannung nicht aushältst, aber auch wenn du sehr nachtragend sein solltest oder dich nicht draust auf andere Schüler*innen zuzugehen. Solltest du dich mit einem oder mehreren dieser Eigenschaften identifizierst, dann ist das überhaupt nicht schlimm jedoch rät der Veranstalter in diesem Fall von der aktiven Teilnahme ab und empfiehlt sich auf das Zuzuschauen zu beschrenken.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer mit Copyright und Lizenz -->
+        <footer>
+            <p>Veranstalter & Spielleitung: <strong>Constantin Kaiser (11 W)</strong></p>
+            <div class="copyright-box">
+                &copy; 2026 Constantin Kaiser<br>
+                Dieses Projekt ist unter der <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer">MIT-Lizenz</a> lizenziert.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- Light / Dark Mode Toggle Logic ---
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const htmlElement = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else if (systemPrefersDark) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        });
+
+        function setTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Hell';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dunkel';
+            }
+        }
+
+        // --- FAQ Accordion Logic ---
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const isActive = button.classList.contains('active');
+
+                document.querySelectorAll('.faq-question').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-expanded', 'false');
+                    const ans = btn.nextElementSibling;
+                    ans.classList.remove('show');
+                    ans.style.maxHeight = null;
+                });
+
+                if (!isActive) {
+                    button.classList.add('active');
+                    button.setAttribute('aria-expanded', 'true');
+                    answer.classList.add('show');
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                }
+            });
+        });
+
+        // --- Auftrags-Ideen-Generator ---
+        const sampleTasks = [
+            "Bringe deine Zielperson dazu, einen Schluck von deinem Getränk zu probieren.",
+            "Überrede deine Zielperson dazu, ein Foto von dir (oder dir und einer anderen Person) zu machen.",
+            "Bringe deine Zielperson dazu, dir ein High-Five zu geben, nachdem du einen offensichtlich schlechten Witz erzählt hast.",
+            "Lass dir von deiner Zielperson einen Gegenstand reichen, den du 'aus Versehen' fallen gelassen hast.",
+            "Bringe deine Zielperson dazu, ein Tiergeräusch nachzumachen.",
+            "Überrede deine Zielperson dazu, für mindestens eine Minute deine Sonnenbrille oder Kopfbedeckung aufzusetzen."
+        ];
+
+        const taskDisplay = document.getElementById('taskDisplay');
+        const generateBtn = document.getElementById('generateBtn');
+
+        generateBtn.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * sampleTasks.length);
+            taskDisplay.textContent = `„${sampleTasks[randomIndex]}“`;
+        });
+
+        // --- Live-Regel-Suche ---
+        const searchInput = document.getElementById('searchInput');
+        const faqItems = document.querySelectorAll('.faq-item');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            faqItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    item.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (visibleCount === 0 && query !== '') {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
